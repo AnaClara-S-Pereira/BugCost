@@ -2,8 +2,6 @@
 
 > Ferramenta que traduz erros de sistema em prejuízo financeiro real.
 
-![Em Desenvolvimento]
-
 ## 📝 Descrição
 
 O BugCost é uma ferramenta desenvolvida para ajudar empresas a entenderem o impacto financeiro de falhas técnicas. O sistema analisa logs de erro e cruza esses dados com o faturamento da operação, permitindo visualizar quanto cada bug custa para o negócio.
