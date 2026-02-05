@@ -8,7 +8,6 @@ export default function LandingPage() {
   return (
     <div className="">
       <main className="min-h-screen pt-20 bg-zinc-950 text-slate-50 flex flex-col items-center justify-center p-8 overflow-hidden relative">
-        {/* Efeitos de fundo (Glow) - Padrão 2026 */}
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
         {/*NAVBAR*/}
@@ -18,7 +17,7 @@ export default function LandingPage() {
               <Image
                 src="/logoOfc.png"
                 alt="Logo BugCost"
-                width={40} // No Next.js 15+, você precisa definir largura e altura
+                width={40}
                 height={40}
                 className="object-contain"
               />
@@ -45,7 +44,6 @@ export default function LandingPage() {
         </nav>
 
         <div className="max-w-4xl text-center space-y-12 z-10">
-          {/* Título com Gradiente */}
           <h1 className="text-7xl md:text-8xl font-black tracking-wide text-fuchsia-50">
             BugCost
           </h1>
@@ -60,7 +58,6 @@ export default function LandingPage() {
             de cada falha no seu sistema.
           </p>
 
-          {/* Grade de Funcionalidades - Robustez Visual */}
           <div className="mt-16 w-full cursor-pointer gap-6 grid grid-cols-1 md: grid-cols-3">
             {/* Card 1 */}
             <div className="p-8 rounded-3xl border border-white/2 bg-white/5 hover:bg-white/10 transition-all hover:scale-105 text-left space-y-4">
@@ -156,9 +153,7 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* */}
-
-          {/* Botão de Ação */}
+          {/* Botão */}
           <div className="pb-20">
             <Link
               href="/hub"
@@ -176,7 +171,7 @@ export default function LandingPage() {
           <h1 className="tracking-wide text-3xl text-blue-200 flex justify-start pl-8 pt-2 font-bold bg-gradient-to-r from-emerald-800 to-emerald-500 to-emerald-200 text-transparent bg-clip-text hover:  from-emerald-400 to-emerald-600 cursor-pointer ">
             BugCost
           </h1>
-          {/* Meio: Social/Contato */}
+          {/* Contato */}
           <div className="flex gap-6 items-center flex justify-end">
             <a
               href="URL_DO_LINKEDIN"
