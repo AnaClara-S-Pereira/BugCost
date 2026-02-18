@@ -1,5 +1,6 @@
 "use client";
 import { ChartNoAxesCombined, SearchCheck, OctagonAlert } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { DotLottiePlayer } from "@dotlottie/react-player";
@@ -35,9 +36,6 @@ export default function LandingPage() {
                 className="hover:text-white transition-colors"
               >
                 Diferencial
-              </a>
-              <a href="#contato" className="hover:text-white transition-colors">
-                Contato
               </a>
             </div>
           </div>
@@ -168,34 +166,39 @@ export default function LandingPage() {
       </main>
       <footer className="w-full bg-zinc-900 py-6 px-10">
         <div className=" grid grid-cols-2">
-          <h1 className="tracking-wide text-3xl text-blue-200 flex justify-start pl-8 pt-2 font-bold bg-gradient-to-r from-emerald-800 to-emerald-500 to-emerald-200 text-transparent bg-clip-text hover:  from-emerald-400 to-emerald-600 cursor-pointer ">
+          <h1 className="tracking-wide text-3xl flex justify-start pl-8 pt-2 font-bold bg-gradient-to-r text-transparent bg-clip-text cursor-pointer from-emerald-500 via-blue-500 to-green-500 bg-clip-text text-transparent">
             BugCost
           </h1>
           {/* Contato */}
           <div className="flex gap-6 items-center flex justify-end">
             <a
-              href="URL_DO_LINKEDIN"
+              href="www.linkedin.com/in/ana-clara-santos-pereira-99a5603a3"
               target="_blank"
-              className="text-zinc-400 hover:text-emerald-500 transition-colors"
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-zinc-100 transition-colors -mx-2"
             >
               LinkedIn
             </a>
             <a
-              href="URL_DO_GITHUB"
+              href="https://github.com/AnaClara-S-Pereira"
+              rel="noopener noreferrer"
               target="_blank"
-              className="text-zinc-400 hover:text-emerald-500 transition-colors"
+              className="text-zinc-400 hover:text-zinc-100 transition-colors"
             >
               GitHub
             </a>
-            <span className="text-zinc-700">|</span>
-            <p className="text-zinc-500 text-sm">
-              pereira.anaclara1303@gmail.com
-            </p>
+            <span className="text-zinc-500 -mx-3">|</span>
+            <a
+              href="mailto:pereira.anaclara1303@gmail.com"
+              className="text-zinc-500 text-sm hover:text-zinc-100 flex items-center gap-2.5 transition-colors"
+            >
+              <Mail className="text-zinc-200 w-4 h-4" />
+              <span>Me envie um e-mail!</span>
+            </a>
           </div>
         </div>
         <p className="text-zinc-600 text-xs flex justify-end">
-          © 2026 Desenvolvido por Ana Clara Pereira. Todos os direitos
-          reservados.
+          © 2026 Desenvolvido por Ana Clara Pereira.
         </p>
       </footer>
     </div>
