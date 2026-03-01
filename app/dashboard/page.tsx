@@ -7,6 +7,7 @@ import {
   Loader2,
   ChevronDown,
   ChevronRight,
+  CircleAlert,
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -108,14 +109,12 @@ export default function Dashboard() {
                 />
               </button>
             </div>
-
-            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl cursor-pointer flex items-center justify-center">
-              <div className="hover:scale-105 transition-all duration-200 flex items-center justify-center gap-3 text-blue-700">
-                <Download size={30} />
-                <span className="text-xl font-medium text-amber-50">
-                  Baixar relatório
-                </span>
+            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+              <div className="flex items-center gap-3 text-orange-400 mb-2">
+                <CircleAlert size={20} />
+                <span className="text-sm font-medium">Nível de risco</span>
               </div>
+              <p className="text-3xl font-bold">{dadosIA?.nivelRisco}</p>
             </div>
           </div>
 
@@ -128,11 +127,11 @@ export default function Dashboard() {
             </p>
           </div>
 
-          {/*RELATÓRIO*/}
+          {/*RELATÓRIO
 
           <div className="mt-20 mb-32 px-6 selecionavel font-sans">
             <div className="max-w-4xl bg-zinc-100 text-[#1a1c21] p-12 rounded-[24px] shadow-2x">
-              {/* Header do Relatório */}
+              {/* Header do Relatório 
               <div className="flex justify-between items-start mb-16">
                 <div>
                   <h2 className="text-3xl font-extrabold tracking-wide text-zinc-900 uppercase">
@@ -149,7 +148,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Vizualização de Perda, Risco e Erros*/}
+              {/* Vizualização de Perda, Risco e Erros*
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div className="flex flex-col border-l-2 border-slate-100 pl-6">
                   <span className="text-[11px] font-bold text-slate-400 9ppercase mb-2">
@@ -187,7 +186,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* RESUMO IMPACTO*/}
+              {/* RESUMO IMPACTO*
               <div className="grid grid-cols-1 gap-12 mb-16 font-medium">
                 <div>
                   <h3 className=" font-black text-blue-800 uppercase mb-4 tracking-widest">
@@ -199,7 +198,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>*/}
         </div>
       </main>
 
