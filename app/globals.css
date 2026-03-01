@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+html, body, * {
+  user-select: none;
+}
+
+.selecionavel, .selecionavel *{
+  user-select: text !important;
+}
+
+.selecionavel {
+  cursor: text;
+}
