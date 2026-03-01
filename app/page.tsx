@@ -172,7 +172,7 @@ export default function LandingPage() {
           {/* Contato */}
           <div className="flex gap-6 items-center flex justify-end">
             <a
-              href="www.linkedin.com/in/ana-clara-santos-pereira-99a5603a3"
+              href="https://www.linkedin.com/in/ana-clara-santos-pereira-99a5603a3"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-zinc-100 transition-colors -mx-2"

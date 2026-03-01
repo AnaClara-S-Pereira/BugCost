@@ -8,12 +8,14 @@ import {
   ChevronDown,
   ChevronRight,
   CircleAlert,
+  ArrowLeft,
 } from "lucide-react";
 
 export default function Dashboard() {
   const [dadosIA, setDadosIA] = useState<any>(null);
   const [carregando, setCarregando] = useState(true);
   const [painelAberto, setPainelAberto] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
     async function analisarDados() {
@@ -30,10 +32,34 @@ export default function Dashboard() {
           method: "POST",
           body: JSON.stringify({ logTexto: log, faturamento }),
         });
+
         const resultado = await resposta.json();
+
+        if (!resposta.ok || resposta.status === 429) {
+          throw new Error("API Indisponível");
+        }
+
         setDadosIA(resultado);
       } catch (error) {
-        console.error("Erro ao chamar a IA", error);
+        // --- DADOS FICTÍCIOS DE EXEMPLO (Caso a API pare) ---
+        setErro(
+          "AVISO: A API está em repouso, mostraremos dados simulados para a vizualização."
+        );
+        setDadosIA({
+          prejuizoEstimado: "250,00",
+          errosEncontrados: 3,
+          nivelRisco: "Alto",
+          impactoDireto: "Instabilidade no Checkout",
+          explicacao:
+            "Simulação de segurança: Foram detectados múltiplos timeouts na camada de banco de dados, resultando em perda de conversão estimada em 15% durante o período analisado.",
+          listaDeErros: [
+            "Erro na sintaxe",
+            "Código duplicado",
+            "Chave de fechamento do button faltando",
+          ],
+          codigoSugestao:
+            "// Exemplo de correção de timeout\nconst db = await connect({ timeout: 5000 });",
+        });
       } finally {
         setCarregando(false);
       }
@@ -61,16 +87,33 @@ export default function Dashboard() {
           painelAberto ? "w-2/3" : "w-full"
         }`}
       >
+        {/* ALERTA, API EM REPOUSO*/}
+        {erro && (
+          <div className="mb-6 bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl flex items-center justify-between animate-in fade-in slide-in-from-top duration-500">
+            <div className="flex items-center gap-3">
+              <AlertTriangle size={20} className="text-amber-500" />
+              <div>
+                <p className="text-xs text-amber-200/60">{erro}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setErro(null)}
+              className="text-xs bg-amber-500/20 hover:bg-amber-500/40 text-amber-200 px-3 py-1.5 rounded-lg transition-all"
+            >
+              Ok
+            </button>
+          </div>
+        )}
         <div className="max-w-4xl mx-auto space-y-8">
           <header className="flex justify-between items-center border-b border-white/10 pb-6 tracking-wider">
             <h1 className="text-2xl font-bold">
               BUG <span className="text-blue-500 -ml-1.5">COST</span>
             </h1>
-            <button
-              onClick={() => (window.location.href = "/hub")}
-              className="text-sm text-zinc-500 hover:text-white transition-colors cursor-pointer"
-            >
-              Nova Análise
+            <button className="-mb-2 text-zinc-400  hover:text-white transition-colors ">
+              <ArrowLeft
+                onClick={() => (window.location.href = "/hub")}
+                className="cursor-pointer"
+              />
             </button>
           </header>
 
@@ -237,8 +280,6 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
-
-          {/* CÓDIGO CORRIGIDO: Ocupa metade da altura para mostrar o código todo */}
           <div className="h-1/2 border-t border-white/10 flex flex-col bg-[#0a0f1a]">
             <div className="px-6 py-3 border-b border-white/5 flex justify-between items-center bg-black/20">
               <span className="text-[10px] uppercase tracking-widest text-green-500 font-bold">
@@ -249,7 +290,7 @@ export default function Dashboard() {
             <div className="flex-1 overflow-auto p-4 bg-[#05070a]">
               <pre className="selecionavel text-[12px] leading-relaxed font-mono text-zinc-300">
                 <code className="whitespace-pre">
-                  {dadosIA?.codigoSugestao || "// Processando correção..."}
+                  {dadosIA?.codigoSugestao}
                 </code>
               </pre>
             </div>

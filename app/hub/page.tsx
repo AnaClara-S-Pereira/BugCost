@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { Upload, DollarSign } from "lucide-react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function Hub() {
   const [arquivo, setArquivo] = useState<File | null>(null);
@@ -39,6 +39,14 @@ export default function Hub() {
   return (
     <div className="flex justify-center items-center">
       <main className="  text-slate-50 flex flex-col items-center justify-center p-8 overflow-hidden relative min-h-screen min-w-screen bg-gradient-to-r from-gray-800 to-zinc-900">
+        <div className="w-full flex justify-start ml-30">
+          <button className="-mb-2 text-zinc-400  hover:text-white transition-colors flex items-start justify-start">
+            <ArrowLeft
+              onClick={() => (window.location.href = "/")}
+              className="cursor-pointer"
+            />
+          </button>
+        </div>
         <div className=" p-20 border border-zinc-300/10 rounded-4xl w-150 shadow-2xl shadow-slate-900 transition-shadow duration-300 cursor-pointer">
           <header className="text-center -mt-4 mb-5">
             <h1 className="text-2xl mb-4">
