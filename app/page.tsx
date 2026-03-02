@@ -1,5 +1,5 @@
 "use client";
-import { ChartNoAxesCombined, SearchCheck, OctagonAlert } from "lucide-react";
+import { BookOpenCheck, SearchCheck, OctagonAlert } from "lucide-react";
 import { Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +16,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-between px-6">
             <span className="flex items-center cursor-pointer">
               <Image
-                src="/logoOfc.png"
+                src="/icon.png"
                 alt="Logo BugCost"
                 width={40}
                 height={40}
@@ -56,34 +56,36 @@ export default function LandingPage() {
             de cada falha no seu sistema.
           </p>
 
-          <div className="mt-16 w-full cursor-pointer gap-6 grid grid-cols-1 md: grid-cols-3">
+          <div className="mt-16 w-full cursor-pointer gap-6 grid grid-cols-1 md:grid-cols-3">
             {/* Card 1 */}
             <div className="p-8 rounded-3xl border border-white/2 bg-white/5 hover:bg-white/10 transition-all hover:scale-105 text-left space-y-4">
-              <OctagonAlert className="text-emerald-500 w-8 h-8" />
-              <h3 className="text-lg font-bold">Cálculo de prejuízo</h3>
+              <SearchCheck className="text-emerald-500 w-8 h-8" />
+              <h3 className="text-lg font-bold">Análise do código</h3>
               <p className="text-sm text-slate-400">
-                Entenda exatamente quais falhas seu projeto possuí e quanto cada
-                falha custa para o seu bolso.
+                Identificamos erros em logs e códigos complexos, traduzindo
+                exatamente o que está acontecendo no seu site de forma clara e
+                objetiva.
               </p>
             </div>
 
             {/* Card 2 */}
             <div className="p-8 rounded-3xl border border-white/2 bg-white/5 hover:bg-white/10 transition-all hover:scale-105 text-left space-y-4">
-              <SearchCheck className="text-emerald-500 w-8 h-8" />
-              <h3 className="text-lg font-bold">Avaliação de código</h3>
+              <OctagonAlert className="text-emerald-500 w-8 h-8" />
+              <h3 className="text-lg font-bold">Cálculo de Prejuízo</h3>
               <p className="text-sm text-slate-400">
-                Foi usado o Llama 3 para analisar seu arquivo e sugerir a
-                correção exata em segundos.
+                Descubra em reais o tamanho do prejuízo que cada erro está
+                causando no faturamento do seu site.
               </p>
             </div>
 
             {/* Card 3 */}
             <div className="p-8 rounded-3xl border border-white/2 bg-white/5 hover:bg-white/10 transition-all hover:scale-105 text-left space-y-4">
-              <ChartNoAxesCombined className="text-emerald-500 w-8 h-8" />
-              <h3 className="text-lg font-bold">Dashboard de resultados</h3>
+              <BookOpenCheck className="text-emerald-500 w-8 h-8" />
+              <h3 className="text-lg font-bold">Correção Automática</h3>
               <p className="text-sm text-slate-400">
-                Painel limpo com o valor do prejuízo, o que causou o erro e o
-                código corrigido.
+                É gerado automaticamente o código corrigido. Basta copiar e
+                aplicar o ajuste para normalizar a plataforma, eliminando o
+                tempo de busca manual pelo erro.
               </p>
             </div>
           </div>
@@ -112,11 +114,12 @@ export default function LandingPage() {
                 </p>
 
                 <p className="text-zinc-400 leading-relaxed">
-                  Para começar, informe o faturamento da sua operação e cole o
-                  <strong> relatório de erros</strong> ou o log do seu servidor.
-                  Nossa inteligência analisa os registros em segundos,
-                  calculando o impacto financeiro exato e entregando a solução
-                  técnica para você resolver o problema imediatamente.
+                  Para começar, informe o faturamento da sua operação e envie
+                  seu
+                  <strong> arquivo</strong> ou o log do seu servidor. É
+                  analisado os registros em segundos, calculando o impacto
+                  financeiro e entregando a solução técnica para você resolver o
+                  problema imediatamente.
                 </p>
               </div>
             </div>
@@ -130,12 +133,12 @@ export default function LandingPage() {
                   NOSSO DIFERENCIAL
                 </h1>
                 <p className="text-zinc-400 leading-relaxed">
-                  O <strong> BugCost </strong>calcula o prejuízo real. A
-                  ferramenta cruza o tempo em que o site ficou instável com o
-                  faturamento da operação, mostrando exatamente quanto dinheiro
-                  foi perdido. Assim, em vez de apenas corrigir códigos, o foco
-                  se volta para resolver as falhas que mais impactam o bolso e o
-                  retorno do negócio.
+                  Enquanto as ferramentas apenas avisam que algo quebrou, o
+                  BugCost mostra o quanto isso custou. O diferencial é
+                  transformar um arquivo confuso em uma lista de prejuízos
+                  financeiros reais. Em vez de perder horas tentando entender o
+                  que aconteceu e como consertar, o sistema já prioriza o que
+                  mais tira dinheiro do seu caixa e entrega a correção pronta.
                 </p>
               </div>
 
@@ -172,7 +175,7 @@ export default function LandingPage() {
           {/* Contato */}
           <div className="flex gap-6 items-center flex justify-end">
             <a
-              href="https://www.linkedin.com/in/ana-clara-santos-pereira-99a5603a3"
+              href="https://www.linkedin.com/in/ana-pereira-dev/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-zinc-100 transition-colors -mx-2"

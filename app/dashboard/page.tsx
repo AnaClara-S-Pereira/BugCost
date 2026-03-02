@@ -51,7 +51,7 @@ export default function Dashboard() {
           nivelRisco: "Alto",
           impactoDireto: "Instabilidade no Checkout",
           explicacao:
-            "Simulação de segurança: Foram detectados múltiplos timeouts na camada de banco de dados, resultando em perda de conversão estimada em 15% durante o período analisado.",
+            "Simulação de avaliação: Foram detectados múltiplos timeouts na camada de banco de dados, resultando em perda de conversão estimada em 15% durante o período analisado.",
           listaDeErros: [
             "Erro na sintaxe",
             "Código duplicado",

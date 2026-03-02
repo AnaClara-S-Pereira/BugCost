@@ -10,13 +10,13 @@ export async function POST(request: Request) {
       messages: [
         {
           role: "system",
-          content: `Você é um Engenheiro Sênior de SRE. Analise o log e o faturamento de R$${faturamento}.
+          content: `Você é um Engenheiro Sênior de SRE. Analise o log e o faturamento de R$${faturamento}. 
 
           REGRAS DE CÁLCULO REALISTA:
           1. Calcule o faturamento por hora: (Faturamento / 720).
           2. Estime o tempo de inatividade baseado no volume de erros no log.
-          3. Multiplique o tempo pelo faturamento/hora para obter o "prejuizoEstimado".
-          4. O "prejuizoEstimado" DEVE ser um número real (ex: 12,50) e NUNCA pode ser maior que R$ ${faturamento}.
+          3. Multiplique o tempo pelo faturamento/hora para obter o "prejuizoEstimado". O valor do "prejuizoEstimado" é sempre o mesmo se o arquivo for o mesmo.
+          4. O "prejuizoEstimado" DEVE ser um número real (ex: 12,50) usando "," e NUNCA pode ser maior que R$ ${faturamento}.
 
           JSON:
           {
@@ -42,15 +42,16 @@ export async function POST(request: Request) {
     const resposta = chatCompletion.choices[0].message.content;
     return NextResponse.json(JSON.parse(resposta || "{}"));
   } catch (error: any) {
-    console.error("Erro na Groq, usando Mock para o Portfólio:", error.message);
+    console.error("Erro na API ", error.message);
 
-    // Se for erro de limite (429), retorna um dado de exemplo para o site não quebrar
+    // Caso de erro de limite de API é mostrados dados simulados.
+
     if (error.status === 429) {
       return NextResponse.json({
         prejuizoEstimado: "1.250,00",
         errosEncontrados: 12,
         explicacao:
-          "Simulação de Portfólio: O limite da API foi atingido, mas este seria o formato real da análise. O sistema identificou múltiplos gargalos de memória e loops infinitos.",
+          "Desculpe, o limite da API foi atingido, mas este seria o formato real da análise. O sistema identificou múltiplos gargalos de memória e loops infinitos.",
         listaDeErros: [
           "Memory Leak detectado na linha 42",
           "Conexão com DB excedeu timeout",

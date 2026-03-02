@@ -40,10 +40,12 @@ export default function Hub() {
     <div className="flex justify-center items-center">
       <main className="  text-slate-50 flex flex-col items-center justify-center p-8 overflow-hidden relative min-h-screen min-w-screen bg-gradient-to-r from-gray-800 to-zinc-900">
         <div className="w-full flex justify-start ml-30">
-          <button className="-mb-2 text-zinc-400  hover:text-white transition-colors flex items-start justify-start">
+          <button className="-mb-2 text-zinc-400  hover:text-white transition-colors ml-20">
             <ArrowLeft
               onClick={() => (window.location.href = "/")}
               className="cursor-pointer"
+              width={30}
+              height={30}
             />
           </button>
         </div>
