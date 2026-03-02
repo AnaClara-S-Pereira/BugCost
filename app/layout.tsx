@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "BugCost",
   description: "Traduza erros técnicos em prejuízo real",
   icons: {
-    icon: "/B.png",
+    icon: "/icon.png",
   },
 };
 

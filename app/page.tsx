@@ -16,7 +16,7 @@ export default function LandingPage() {
           <div className="flex items-center justify-between px-6">
             <span className="flex items-center cursor-pointer">
               <Image
-                src="/icon.png"
+                src="/iconTransparent.png"
                 alt="Logo BugCost"
                 width={40}
                 height={40}
