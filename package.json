@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@dotlottie/react-player": "^1.6.19",
+    "@google/generative-ai": "^0.24.1",
+    "@mistralai/mistralai": "^1.15.1",
     "groq-sdk": "^0.37.0",
     "html2pdf.js": "^0.14.0",
     "lucide-react": "^0.563.0",

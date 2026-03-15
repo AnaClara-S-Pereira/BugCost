@@ -1,67 +1,51 @@
 import { NextResponse } from "next/server";
-import Groq from "groq-sdk";
+import { Mistral } from "@mistralai/mistralai";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const client = new Mistral({ apiKey: process.env.MISTRAL_API_KEY || "" });
+
 export async function POST(request: Request) {
   try {
     const { logTexto, faturamento } = await request.json();
-
-    const chatCompletion = await groq.chat.completions.create({
+    // Cálculo da taxa por minuto (Faturamento / 30 dias / 24h / 60min)
+    const valorMinuto = (parseFloat(faturamento) || 0) / 43200; //43.200 => minutos por mês.
+    const chatResponse = await client.chat.complete({
+      model: "mistral-small-latest",
+      temperature: 0,
       messages: [
         {
           role: "system",
-          content: `Você é um Engenheiro Sênior de SRE. Analise o log e o faturamento de R$${faturamento}. 
+          content: `Aja como Engenheiro SRE. Analise o log e retorne APENAS um JSON.
+          Estime o 'downtimeMinutos' baseando-se no tempo entre o primeiro e último erro.
 
-          REGRAS DE CÁLCULO REALISTA:
-          1. Calcule o faturamento por hora: (Faturamento / 720).
-          2. Estime o tempo de inatividade baseado no volume de erros no log.
-          3. Multiplique o tempo pelo faturamento/hora para obter o "prejuizoEstimado". O valor do "prejuizoEstimado" é sempre o mesmo se o arquivo for o mesmo.
-          4. O "prejuizoEstimado" DEVE ser um número real (ex: 12,50) usando "," e NUNCA pode ser maior que R$ ${faturamento}.
-
-          JSON:
+          Formato:
           {
-           "prejuizoEstimado": "valor_calculado_com_virgula",
-           "errosEncontrados": total_de_erros,
-           "explicacao": "Explique a matemática: 'X erros causaram Y minutos de queda, se for menos de 1 hora, coloque a hora em minutos, resultando em R$ Z de perda. Explique detalhadamente tambem: oque os erros estão causando. Não cite os cálculos, apenas os valores'.",
+           "downtimeMinutos": 0,
+           "errosEncontrados": 0,
+           "explicacao": "Resumo técnico detalhado, falando quanto tempo o sistema ficou fora do ar e oque isso está causando.",
            "listaDeErros": ["Erro 1", "Erro 2"],
-           "codigoSugestao": "Código completo corrigido do início ao fim sem markdown.",
+           "codigoSugestao": "Código corrigido detalhado falando onde e como resolver cada coisa com quebra de linha.",
            "nivelRisco": "Baixo, Moderado ou Alto",
-           "impactoDireto": "Impacto no faturamento ou operação"
-           }`,
+           "impactoDireto": "Impacto no negócio"
+          }`,
         },
-
-        {
-          role: "user",
-          content: `Aqui está o log: ${logTexto}`,
-        },
+        { role: "user", content: `Log: ${logTexto}` },
       ],
-      model: "llama-3.1-8b-instant",
-      response_format: { type: "json_object" },
+      responseFormat: { type: "json_object" },
     });
 
-    const resposta = chatCompletion.choices[0].message.content;
-    return NextResponse.json(JSON.parse(resposta || "{}"));
-  } catch (error: any) {
-    console.error("Erro na API ", error.message);
+    const resposta = chatResponse.choices?.[0]?.message?.content;
+    const dadosIA = JSON.parse(typeof resposta === "string" ? resposta : "{}");
 
-    // Caso de erro de limite de API é mostrados dados simulados.
+    // Mostrar minutos em downtime e fixar 2 casas decimais no prejuízo.
+    const minutos = dadosIA.downtimeMinutos || 0;
+    const prejuizoFinal = (minutos * valorMinuto).toFixed(2);
 
-    if (error.status === 429) {
-      return NextResponse.json({
-        prejuizoEstimado: "1.250,00",
-        errosEncontrados: 12,
-        explicacao:
-          "Desculpe, o limite da API foi atingido, mas este seria o formato real da análise. O sistema identificou múltiplos gargalos de memória e loops infinitos.",
-        listaDeErros: [
-          "Memory Leak detectado na linha 42",
-          "Conexão com DB excedeu timeout",
-        ],
-        codigoSugestao: "// Exemplo de correção\nconst db = await connect();",
-        nivelRisco: "Alto",
-        impactoDireto: "Interrupção total do checkout",
-      });
-    }
-
-    return NextResponse.json({ error: "Erro na análise" }, { status: 500 });
+    return NextResponse.json({
+      ...dadosIA,
+      prejuizoEstimado: prejuizoFinal,
+    });
+  } catch (error) {
+    console.error("Erro:", error);
+    return NextResponse.json({ error: "Falha na análise" }, { status: 500 });
   }
 }

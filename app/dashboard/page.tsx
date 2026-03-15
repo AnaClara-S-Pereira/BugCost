@@ -43,7 +43,7 @@ export default function Dashboard() {
       } catch (error) {
         // --- DADOS FICTÍCIOS DE EXEMPLO (Caso a API pare) ---
         setErro(
-          "AVISO: A API está em repouso, mostraremos dados simulados para a vizualização."
+          "AVISO: A API está em repouso, mostraremos dados simulados para a vizualização.",
         );
         setDadosIA({
           prejuizoEstimado: "250,00",
@@ -64,7 +64,6 @@ export default function Dashboard() {
         setCarregando(false);
       }
     }
-
     analisarDados();
   }, []);
 
