@@ -1,14 +1,7 @@
 "use client";
-import {
-  FormEvent,
-  ReactHTMLElement,
-  useState,
-  useEffect,
-  ReactElement,
-} from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, DollarSign } from "lucide-react";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Upload, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function Hub() {
   const [arquivo, setArquivo] = useState<File | null>(null);
@@ -20,74 +13,77 @@ export default function Hub() {
     if (salvo) setValor(salvo);
   }, []);
 
-  const Calcular = async (e: React.FormEvent) => {
+  const Calcular = async (e: FormEvent) => {
     e.preventDefault();
     if (!valor || !arquivo) return alert("Preencha tudo!");
 
     const leitor = new FileReader();
     leitor.onload = async (evento) => {
       const textoDoLog = evento.target?.result as string;
-
       localStorage.setItem("BugcostLogTexto", textoDoLog);
       localStorage.setItem("bugcostFaturamento", valor);
-
       router.push("/dashboard");
     };
     leitor.readAsText(arquivo);
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <main className="  text-slate-50 flex flex-col items-center justify-center p-8 overflow-hidden relative min-h-screen min-w-screen bg-gradient-to-r from-gray-800 to-zinc-900">
-        <div className="w-full flex justify-start ml-30">
-          <button className="-mb-2 text-zinc-400  hover:text-white transition-colors ml-20">
-            <ArrowLeft
-              onClick={() => (window.location.href = "/")}
-              className="cursor-pointer"
-              width={30}
-              height={30}
-            />
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-gray-800 to-zinc-900 text-slate-50">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 relative">
+        {/* Botão Voltar */}
+        <div className="w-full max-w-xl mb-4">
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="text-zinc-400 hover:text-white transition-colors p-2"
+          >
+            <ArrowLeft width={30} height={30} />
           </button>
         </div>
-        <div className=" p-20 border border-zinc-300/10 rounded-4xl w-150 shadow-2xl shadow-slate-900 transition-shadow duration-300 cursor-pointer">
-          <header className="text-center -mt-4 mb-5">
-            <h1 className="text-2xl mb-4">
+
+        {/* Card Principal*/}
+        <div className="w-full max-w-xl p-6 md:p-12 border border-zinc-300/10 rounded-3xl md:rounded-[3rem] bg-zinc-900/50 backdrop-blur-sm shadow-2xl transition-all duration-300">
+          <header className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">
               BUG<span className="text-blue-500 tracking-tight">COST</span>
             </h1>
-            <p className="text-sm text-zinc-400 tracking-widest uppercase">
+            <p className="text-xs md:text-sm text-zinc-400 tracking-widest uppercase">
               Avaliação do arquivo
             </p>
           </header>
-          <form onSubmit={Calcular}>
-            <div className="space-y-2 grid grid-row-2">
-              <label className="tracking-wide ml-1 text-zinc-300 text-slate-400 font-medium text-sm">
+
+          <form onSubmit={Calcular} className="space-y-6">
+            <div className="flex flex-col space-y-2">
+              <label className="tracking-wide ml-1 text-zinc-400 font-medium text-sm">
                 Faturamento Mensal
               </label>
               <input
                 type="number"
-                className=" p-3 border border-white/10 focus:outline-none focus:border-blue-600 focus:backdrop-blur-3xl rounded-xl"
+                className="w-full p-4 bg-transparent border border-white/10 focus:outline-none focus:border-blue-600 rounded-xl transition-all"
                 placeholder="Ex: 1000"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)}
-              ></input>
+              />
             </div>
-            <label className="border border-dashed border-zinc-600 p-10 flex flex-col justify-center items-center rounded-2xl mt-4 mb-4 cursor-pointer hover:border-zinc-300 duration-400 transition-colors">
-              <Upload className="mb-2 size-7"></Upload>
-              <span className="">
+
+            <label className="border-2 border-dashed border-zinc-600 p-8 md:p-12 flex flex-col justify-center items-center rounded-2xl cursor-pointer hover:border-blue-500 hover:bg-blue-500/5 transition-all group">
+              <Upload className="mb-3 size-8 text-zinc-400 group-hover:text-blue-500 transition-colors" />
+              <span className="text-sm md:text-base text-center break-all">
                 {arquivo ? arquivo.name : "Selecione o arquivo .log"}
               </span>
               <input
                 type="file"
                 className="hidden"
+                accept=".log,text/plain"
                 onChange={(e) => setArquivo(e.target.files?.[0] || null)}
               />
             </label>
-            <div className="flex justify-center items-center">
+
+            <div className="flex justify-center">
               <button
                 type="submit"
-                className=" bg-blue-950 rounded-xl p-3 w-50 tracking-wide flex justify-center items-center gap-2 mt-4 cursor-pointer hover:bg-blue-900 hover:scale-110 duration-300"
+                className="w-full md:w-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl px-8 py-4 flex justify-center items-center gap-2 transition-all hover:scale-105 active:scale-95"
               >
-                Analizar prejuízo <ArrowRight size={18}></ArrowRight>{" "}
+                Analisar prejuízo <ArrowRight size={18} />
               </button>
             </div>
           </form>

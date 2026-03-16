@@ -167,42 +167,50 @@ export default function LandingPage() {
 
         {/*FOOTER*/}
       </main>
-      <footer className="w-full bg-zinc-900 py-6 px-10">
-        <div className=" grid grid-cols-2">
-          <h1 className="tracking-wide text-3xl flex justify-start pl-8 pt-2 font-bold bg-gradient-to-r text-transparent bg-clip-text cursor-pointer from-emerald-500 via-blue-500 to-green-500 bg-clip-text text-transparent">
+      <footer className="w-full bg-zinc-900 py-8 px-6 md:px-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <h1 className="tracking-wide text-3xl font-bold bg-gradient-to-r from-emerald-500 via-blue-500 to-green-500 bg-clip-text text-transparent cursor-pointer">
             BugCost
           </h1>
-          {/* Contato */}
-          <div className="flex gap-6 items-center flex justify-end">
-            <a
-              href="https://www.linkedin.com/in/ana-pereira-dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-zinc-100 transition-colors -mx-2"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/AnaClara-S-Pereira"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="text-zinc-400 hover:text-zinc-100 transition-colors"
-            >
-              GitHub
-            </a>
-            <span className="text-zinc-500 -mx-3">|</span>
+
+          {/* Links e Contato */}
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+            <div className="flex gap-6 items-center">
+              <a
+                href="https://www.linkedin.com/in/ana-pereira-dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-zinc-100 transition-colors text-sm md:text-base"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/AnaClara-S-Pereira"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-zinc-100 transition-colors text-sm md:text-base"
+              >
+                GitHub
+              </a>
+            </div>
+
+            <span className="hidden md:block text-zinc-700">|</span>
+
             <a
               href="mailto:pereira.anaclara1303@gmail.com"
-              className="text-zinc-500 text-sm hover:text-zinc-100 flex items-center gap-2.5 transition-colors"
+              className="text-zinc-400 text-sm hover:text-zinc-100 flex items-center gap-2 transition-colors bg-zinc-800/50 px-4 py-2 rounded-full md:bg-transparent md:p-0"
             >
-              <Mail className="text-zinc-200 w-4 h-4" />
+              <Mail className="text-emerald-500 w-4 h-4" />
               <span>Me envie um e-mail!</span>
             </a>
           </div>
         </div>
-        <p className="text-zinc-600 text-xs flex justify-end">
-          © 2026 Desenvolvido por Ana Clara Pereira.
-        </p>
+
+        <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-zinc-800 flex justify-center md:justify-end">
+          <p className="text-zinc-600 text-[10px] md:text-xs">
+            © 2026 Desenvolvido por Ana Clara Pereira.
+          </p>
+        </div>
       </footer>
     </div>
   );
