@@ -22,7 +22,7 @@ export async function POST(request: Request) {
            "downtimeMinutos": 0,
            "errosEncontrados": 0,
            "explicacao": "Resumo técnico detalhado, falando quanto tempo o sistema ficou fora do ar e oque isso está causando.",
-           "listaDeErros": ["Erro 1", "Erro 2"],
+           "listaDeErros": ["Erro 1", "Erro 2"] e precisa ser em português,
            "codigoSugestao": "Código corrigido detalhado falando onde e como resolver cada coisa com quebra de linha.",
            "nivelRisco": "Baixo, Moderado ou Alto",
            "impactoDireto": "Impacto no negócio"

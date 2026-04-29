@@ -169,9 +169,16 @@ export default function LandingPage() {
       </main>
       <footer className="w-full bg-zinc-900 py-8 px-6 md:px-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <h1 className="tracking-wide text-3xl font-bold bg-gradient-to-r from-emerald-500 via-blue-500 to-green-500 bg-clip-text text-transparent cursor-pointer">
-            BugCost
-          </h1>
+          <div className="flex">
+            <div className="flex">
+              <h1 className="tracking-wide text-3xl font-bold text-[#4c92bc] cursor-pointer">
+                Bug
+              </h1>
+              <h1 className="tracking-wide text-3xl font-bold text-[#b0b0b0] cursor-pointer">
+                Cost
+              </h1>
+            </div>
+          </div>
 
           {/* Links e Contato */}
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">

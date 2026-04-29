@@ -121,7 +121,7 @@ export default function Dashboard() {
                   {dadosIA?.errosEncontrados}
                 </span>
                 <ChevronDown
-                  className={`transition-transform ${painelAberto ? "rotate-180" : ""}`}
+                  className={`transition-transform ${painelAberto ? "rotate-180" : ""} cursor-pointer`}
                 />
               </button>
             </div>
