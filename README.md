@@ -31,4 +31,4 @@ O BugCost ajuda empresas a entenderem o impacto financeiro de falhas técnicas. 
 
 1. Clone o repositório:
 ```bash
-git clone [https://github.com/AnaClara-S-Pereira/BugCost.git](https://github.com/AnaClara-S-Pereira/BugCost.git)
+git clone https://github.com/AnaClara-S-Pereira/BugCost.git
