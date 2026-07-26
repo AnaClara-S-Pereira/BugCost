@@ -15,9 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BugCost",
   description: "Traduza erros técnicos em prejuízo real",
-  icons: {
-    icon: "/icon.png",
-  },
 };
 
 export default function RootLayout({

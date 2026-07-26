@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const { logTexto, faturamento } = await request.json();
     // Cálculo da taxa por minuto (Faturamento / 30 dias / 24h / 60min)
-    const valorMinuto = (parseFloat(faturamento) || 0) / 43200; //43.200 => minutos por mês.
+    const valorMinuto = (parseFloat(faturamento) || 0) / 43200; //43.200 minutos por mês.
     const chatResponse = await client.chat.complete({
       model: "mistral-small-latest",
       temperature: 0,
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
            "errosEncontrados": 0,
            "explicacao": "Resumo técnico detalhado, falando quanto tempo o sistema ficou fora do ar e oque isso está causando.",
            "listaDeErros": ["Erro 1", "Erro 2"] e precisa ser em português,
-           "codigoSugestao": "Código corrigido detalhado falando onde e como resolver cada coisa com quebra de linha.",
+           "codigoSugestao": "Código corrigido detalhado falando onde e como resolver cada coisa com quebra de linha de forma organizada.",
            "nivelRisco": "Baixo, Moderado ou Alto",
            "impactoDireto": "Impacto no negócio"
           }`,
@@ -35,8 +35,6 @@ export async function POST(request: Request) {
 
     const resposta = chatResponse.choices?.[0]?.message?.content;
     const dadosIA = JSON.parse(typeof resposta === "string" ? resposta : "{}");
-
-    // Mostrar minutos em downtime e fixar 2 casas decimais no prejuízo.
     const minutos = dadosIA.downtimeMinutos || 0;
     const prejuizoFinal = (minutos * valorMinuto).toFixed(2);
 
