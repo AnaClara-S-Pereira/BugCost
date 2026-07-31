@@ -43,15 +43,14 @@ export default function LandingPage() {
             className="w-full h-full object-cover object-right opacity-20"
           >
             <source src="/header.mp4" type="video/mp4" />
-            Seu navegador não suporta a tag de vídeo.
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/30 via-transparent to-zinc-950" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full font-sans">
           <div className="max-w-3xl flex flex-col items-start text-left">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.15] text-white">
+            <h1 className="text-white text-5xl md:text-7xl font-bold leading-[1.1] tracking-tighter">
               Descubra o impacto <br />
               financeiro dos bugs no <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
@@ -59,7 +58,8 @@ export default function LandingPage() {
               </span>
             </h1>
 
-            <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-zinc-400 max-w-xl leading-relaxed font-normal">
+
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-[15px] text-zinc-400 max-w-xl leading-relaxed font-normal">
               Converta logs de erro em métricas de prejuízo real. Saiba exatamente quanto cada falha custa por minuto e receba soluções prontas para produção.
             </p>
 
@@ -80,35 +80,46 @@ export default function LandingPage() {
         {/* SEÇÃO DE RECURSOS */}
         <section className="relative pt-8 sm:pt-12 pb-16 sm:pb-20 px-4 sm:px-6 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left">
+
+            {/* RECURSO 1 */}
             <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 hover:border-zinc-700 transition-all duration-200">
               <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4 sm:mb-6">
                 <SearchCheck className="text-blue-400 w-5 h-5" />
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-2">Análise de Logs</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+                Encontre o erro sem complicação
+              </h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Leitura inteligente de stack traces e falhas críticas em arquivos extensos, simplificando a identificação da causa raiz.
+                Não perca tempo lendo milhares de linhas de log. A gente aponta exatamente onde o código quebrou e o que causou o problema.
               </p>
             </div>
 
+            {/* RECURSO 2 */}
             <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 hover:border-zinc-700 transition-all duration-200">
               <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-4 sm:mb-6">
                 <DollarSign className="text-emerald-400 w-5 h-5" />
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-2">Cálculo de Downtime</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+                Saiba quanto dinheiro você perdeu
+              </h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Cruzamento direto entre o tempo de inatividade do servidor e a receita estimada da empresa para precificar a falha.
+                Calculamos o prejuízo em reais cruzando os minutos que o sistema ficou fora do ar com o quanto a sua empresa fatura.
               </p>
             </div>
 
+            {/* RECURSO 3 */}
             <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/40 hover:border-zinc-700 transition-all duration-200">
               <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-4 sm:mb-6">
                 <BookOpenCheck className="text-indigo-400 w-5 h-5" />
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-2">Patch Recomendado</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+                Receba o código pronto pra arrumar
+              </h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Sugestão automatizada da correção do código para reduzir o MTTR (tempo médio de reparo) da sua equipe.
+                Além de mostrar o erro e o prejuízo, geramos a solução pronta para você copiar, colar e resolver o problema na hora.
               </p>
             </div>
+
           </div>
         </section>
 
@@ -163,13 +174,13 @@ export default function LandingPage() {
           <div className="p-6 sm:p-8 md:p-12 rounded-2xl border border-zinc-800/80 bg-zinc-900/30 flex flex-col gap-8">
             <div className="w-full text-left space-y-3 sm:space-y-4">
               <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white">
-                Nosso Diferencial
+                Por que usar o BugCost?
               </h2>
               <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
-                Sistemas tradicionais de monitoramento apontam falhas técnicas, mas ignoram a linguagem dos negócios. O BugCost conecta engenharia e finanças na mesma métrica.
+                Outras ferramentas mostram apenas erros em código que só desenvolvedores entendem. O BugCost vai além: traduzimos esses erros em reais para que todo mundo na empresa entenda a gravidade do problema.
               </p>
               <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
-                Priorize gargalos baseando-se no verdadeiro impacto financeiro que cada bug causa à sua operação.
+                Assim, sua equipe sabe exatamente qual bug arrumar primeiro, focando no que realmente está fazendo a empresa perder dinheiro.
               </p>
             </div>
 
@@ -183,7 +194,7 @@ export default function LandingPage() {
                   NullPointerException em PagamentoService.java:142
                 </div>
                 <p className="text-xs text-zinc-500">
-                  Mostra apenas onde o código quebrou, sem medir o impacto direto no faturamento.
+                  Apenas mostra onde o código travou, deixando você no escuro sobre o prejuízo real.
                 </p>
               </div>
 
