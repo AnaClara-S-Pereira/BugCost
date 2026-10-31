@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+import Relatorio from "./Relatorio";
 import {
   AlertTriangle,
   TrendingDown,
@@ -9,6 +11,8 @@ import {
   ChevronDown,
   CircleAlert,
   ArrowLeft,
+  Clock,
+  FileText,
   X,
 } from "lucide-react";
 
@@ -16,29 +20,34 @@ export default function Dashboard() {
   const [dadosIA, setDadosIA] = useState<any>(null);
   const [carregando, setCarregando] = useState(true);
   const [painelAberto, setPainelAberto] = useState(false);
+  const [relatorioAberto, setRelatorioAberto] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [faturamento, setFaturamento] = useState(0);
 
+  // PEGA O LOG E O FATURAMENTO SALVOS, MANDA PARA A API E GUARDA A RESPOSTA
+  // SE A API FALHAR, MOSTRA UM RESULTADO DE EXEMPLO COM UM AVISO
   useEffect(() => {
     async function analisarDados() {
       const log = localStorage.getItem("BugcostLogTexto");
-      const faturamento = localStorage.getItem("bugcostFaturamento");
+      const valorSalvo = localStorage.getItem("bugcostFaturamento");
 
-      if (!log || !faturamento) {
+      if (!log || !valorSalvo) {
         window.location.href = "/";
         return;
       }
+      setFaturamento(parseFloat(valorSalvo) || 0);
 
       try {
         const resposta = await fetch("/api/analisar", {
           method: "POST",
-          body: JSON.stringify({ logTexto: log, faturamento }),
+          body: JSON.stringify({ logTexto: log, faturamento: valorSalvo }),
         });
 
         const resultado = await resposta.json();
         if (!resposta.ok) throw new Error("Erro");
 
         setDadosIA(resultado);
-      } catch (error) {
+      } catch {
         setErro("AVISO: A API ESTÁ EM REPOUSO, MOSTRANDO DADOS SIMULADOS.");
         setDadosIA({
           prejuizoEstimado: "250,00",
@@ -62,9 +71,10 @@ export default function Dashboard() {
     analisarDados();
   }, []);
 
+  // TELA DE CARREGAMENTO ENQUANTO A IA ANALISA O LOG
   if (carregando) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center select-all justify-center text-white">
+      <div className="min-h-screen bg-zinc-950 flex flex-col items-center select-all justify-center text-white">
         <Loader2 className="animate-spin size-12 text-blue-500 mb-4" />
         <p className="tracking-widest font-bold">AGUARDE...</p>
       </div>
@@ -72,12 +82,13 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-950 text-white overflow-x-hidden relative font-sans">
+    <div className="flex min-h-screen bg-zinc-950 text-white overflow-x-hidden relative font-sans">
+      {/* CONTEÚDO PRINCIPAL: AVISO DE ERRO, TOPO, CARDS DE RESULTADO E RESUMOS */}
       <main
         className={`transition-all duration-500 p-4 md:p-8 w-full ${painelAberto ? "lg:mr-[33%]" : ""}`}
       >
         {erro && (
-          <div className="max-w-4xl mx-auto mb-6 bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl flex items-center justify-between gap-4">
+          <div className="max-w-6xl mx-auto mb-6 bg-amber-500/10 border border-amber-500/20 p-4 rounded-lg flex items-center justify-between gap-4">
             <p className="text-[10px] md:text-xs text-amber-200 font-semibold">{erro}</p>
             <button
               onClick={() => setErro(null)}
@@ -88,65 +99,115 @@ export default function Dashboard() {
           </div>
         )}
 
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-6xl mx-auto space-y-6">
           <header className="flex justify-between items-center border-b border-white/10 pb-6">
-            <h1 className="text-xl md:text-2xl font-bold italic">
-              BUG <span className="text-blue-500">COST</span>
+            <h1 className="flex items-center gap-2 text-xl md:text-2xl font-bold italic">
+              <Image src="/logo.png" alt="BugCost" width={32} height={32} className="h-8 w-auto rounded-md" />
+              <span>
+                BUG <span className="text-blue-500">COST</span>
+              </span>
             </h1>
-            <ArrowLeft
-              onClick={() => (window.location.href = "/hub")}
-              className="cursor-pointer text-zinc-400 hover:text-white"
-            />
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setRelatorioAberto(true)}
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-lg cursor-pointer transition-colors"
+              >
+                <FileText size={16} />
+                Ver relatório
+              </button>
+              <ArrowLeft
+                onClick={() => (window.location.href = "/enviar")}
+                className="cursor-pointer text-zinc-400 hover:text-white"
+              />
+            </div>
           </header>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
-              <div className="flex items-center gap-2 text-red-600 mb-2 font-bold text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
+              <div className="flex items-center gap-2 text-red-500 mb-2 font-bold text-sm">
                 <TrendingDown size={18} /> PREJUÍZO
               </div>
-              <p className="text-2xl md:text-3xl font-bold">
+              <p className="text-3xl md:text-4xl font-bold">
                 R${dadosIA?.prejuizoEstimado}
               </p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+            <div
+              onClick={() => setPainelAberto(!painelAberto)}
+              className="bg-white/5 border border-blue-500/40 p-6 rounded-lg hover:border-blue-400 hover:bg-white/[0.07] transition-all duration-300 cursor-pointer"
+            >
               <div className="flex items-center gap-2 text-amber-400 mb-2 font-bold text-sm">
                 <AlertTriangle size={18} /> ERROS
               </div>
-              <button
-                onClick={() => setPainelAberto(!painelAberto)}
-                className="flex items-center gap-2 group"
-              >
-                <span className="text-2xl md:text-3xl font-bold">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl md:text-4xl font-bold">
                   {dadosIA?.errosEncontrados}
                 </span>
                 <ChevronDown
-                  className={`transition-transform ${painelAberto ? "rotate-180" : ""} cursor-pointer`}
+                  className={`transition-transform ${painelAberto ? "rotate-180" : ""}`}
                 />
-              </button>
+              </div>
+              <p className="mt-2 text-xs text-blue-400 font-medium animate-pulse">
+                Clique para ver os erros e a correção
+              </p>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl sm:col-span-2 md:col-span-1">
+            <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
+              <div className="flex items-center gap-2 text-sky-400 mb-2 font-bold text-sm">
+                <Clock size={18} /> FORA DO AR
+              </div>
+              <p className="text-3xl md:text-4xl font-bold">
+                {dadosIA?.downtimeMinutos ?? "-"}
+                <span className="text-base text-zinc-400 font-medium"> min</span>
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
               <div className="flex items-center gap-2 text-orange-400 mb-2 font-bold text-sm">
                 <CircleAlert size={18} /> RISCO
               </div>
-              <p className="text-2xl md:text-3xl font-bold">
+              <p className="text-3xl md:text-4xl font-bold">
                 {dadosIA?.nivelRisco}
               </p>
             </div>
           </div>
 
-          <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+          <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
             <h2 className="text-blue-400 mb-4 italic font-bold text-sm">
               RESUMO DOS ERROS:
             </h2>
-            <p className="text-zinc-300 text-sm leading-relaxed">
+            <p className="text-zinc-300 text-sm md:text-base leading-relaxed">
               {dadosIA?.explicacao}
             </p>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
+              <h2 className="text-blue-400 mb-4 italic font-bold text-sm">
+                IMPACTO NO NEGÓCIO:
+              </h2>
+              <p className="text-zinc-300 text-sm md:text-base leading-relaxed">
+                {dadosIA?.impactoDireto}
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 p-6 rounded-lg hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300">
+              <h2 className="text-blue-400 mb-4 italic font-bold text-sm">
+                COMO O PREJUÍZO FOI CALCULADO:
+              </h2>
+              <p className="text-zinc-300 text-sm md:text-base leading-relaxed">
+                Faturamento de R$ {faturamento.toLocaleString("pt-BR")} por mês,
+                ou seja, R$ {(faturamento / 43200).toFixed(2)} por minuto.
+                Multiplicado por {dadosIA?.downtimeMinutos ?? 0} minutos fora do
+                ar.
+              </p>
+            </div>
+          </div>
+
         </div>
       </main>
 
+      {/* PAINEL LATERAL COM A LISTA DE ERROS E O CÓDIGO DE CORREÇÃO */}
       <aside
         className={`fixed top-0 right-0 h-full bg-[#0a0f1a] border-l border-white/10 flex flex-col z-50 transition-all duration-500 ${painelAberto ? "translate-x-0 w-[85%] md:w-[40%] lg:w-1/3" : "translate-x-full w-0"}`}
       >
@@ -206,6 +267,15 @@ export default function Dashboard() {
         <div
           onClick={() => setPainelAberto(false)}
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        />
+      )}
+
+      {/* TELA DO RELATÓRIO PARA VER E BAIXAR EM PDF */}
+      {relatorioAberto && (
+        <Relatorio
+          dados={dadosIA}
+          faturamento={faturamento}
+          fechar={() => setRelatorioAberto(false)}
         />
       )}
     </div>
